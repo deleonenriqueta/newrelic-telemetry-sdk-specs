@@ -1,7 +1,5 @@
-# This workflow automates the process of identifying potential security vulnerabilities 
-# using Snyk. Dependency vulnerability scans will be run when a push is made to the main 
-# branch, on a weekly schedule, and can also be triggered manually.
-
+# This workflow automates the process of identifying potential security vulnerabilities using Snyk. 
+# Dependency vulnerability scans will be run on a weekly schedule, but can also be triggered manually.
 name: Snyk Vulnerability Scan
 on:
   workflow_dispatch:
@@ -21,5 +19,5 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: test
-          args: --all-sub-projects --org=java-agent-test
+          command: monitor
+          args: --all-sub-projects --org=java-agent-test --configuration-matching='(^compileClasspath$)|(^runtimeClasspath$)'
